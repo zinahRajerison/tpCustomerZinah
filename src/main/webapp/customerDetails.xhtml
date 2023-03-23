@@ -13,7 +13,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form rendered='#{customerDetailsBean.customer != null}'>
             <h1><h:outputText value="Create/Edit"/></h1>
             <h:panelGrid columns="2">
                 <h:outputLabel value="CustomerId:" for="customerId" />
@@ -37,7 +37,7 @@
                 <h:outputLabel value="CreditLimit:" for="creditLimit" />
                 <h:inputText id="creditLimit" value="#{customerDetailsBean.customer.creditLimit}" title="CreditLimit" />
                 <h:outputLabel value="Discount:" for="discount" />
-                 <h:selectOneMenu 
+                <h:selectOneMenu 
                     id="discount" value="#{customerDetailsBean.customer.discount}" 
                     title="Discount" required="true" requiredMessage="The Discount field is required."
                     converter="discountConverter">
@@ -47,10 +47,13 @@
                                    itemValue="#{discount}"/>
                 </h:selectOneMenu>
 
-                <h:button id="back" value="Revenir à la liste" outcome="customerList"/>
                 <h:commandButton id="update" value="Enregistrer" action="#{customerDetailsBean.update}"/>
             </h:panelGrid>
             <h:messages/>
         </h:form>
+        <h:button id="back" value="Revenir à la liste" outcome="customerList"/>
+        <h:outputText value="Aucun client avec l'id #{customerDetailsBean.idCustomer} !" rendered='#{customerDetailsBean.customer == null}'/>
+
+
     </h:body>
 </html>
